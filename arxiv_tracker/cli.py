@@ -229,6 +229,25 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
                 break
 
             for it in page_items:
+                # 排除关键词过滤（在代码层面过滤，避免ANDNOT语法问题）
+                if exclude_keywords:
+                    title = (it.get("title") or "").lower()
+                    summary = (it.get("summary") or "").lower()
+                    comments = (it.get("comments") or "").lower()
+                    text = f"{title} {summary} {comments}"
+                    
+                    # 检查是否包含任何排除关键词
+                    should_exclude = False
+                    for exclude_kw in exclude_keywords:
+                        if exclude_kw.lower() in text:
+                            should_exclude = True
+                            if verbose:
+                                click.echo(f"[Filter] Excluding {(it.get('id') or '')[:32]}... (matched: {exclude_kw})")
+                            break
+                    
+                    if should_exclude:
+                        continue
+                
                 # 时间窗（按 updated 优先；无则退回 published）
                 t = _parse_dt(it.get("updated")) or _parse_dt(it.get("published"))
                 if cutoff and t and t < cutoff:
@@ -259,7 +278,27 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
                 q, start=0, max_results=want_new,
                 sort_by=cfg.sort_by, sort_order=cfg.sort_order
             )
-            collected = parse_feed(xml) or []
+            fallback_items = parse_feed(xml) or []
+            # 对fallback结果也进行排除关键词过滤
+            if exclude_keywords:
+                filtered_fallback = []
+                for it in fallback_items:
+                    title = (it.get("title") or "").lower()
+                    summary = (it.get("summary") or "").lower()
+                    comments = (it.get("comments") or "").lower()
+                    text = f"{title} {summary} {comments}"
+                    
+                    should_exclude = False
+                    for exclude_kw in exclude_keywords:
+                        if exclude_kw.lower() in text:
+                            should_exclude = True
+                            break
+                    
+                    if not should_exclude:
+                        filtered_fallback.append(it)
+                collected = filtered_fallback
+            else:
+                collected = fallback_items
 
         items = collected
         if not items:
