@@ -85,9 +85,4 @@ def build_search_query(categories: List[str], keywords: List[str], logic: str = 
     else:
         # 没给任何条件就回到全站（不建议）
         main_query = "all:*"
-    
-    # 如果有排除关键词，添加 ANDNOT
-    if exclude_q:
-        return f"({main_query}) ANDNOT {exclude_q}"
-    else:
-        return main_query
+    return main_query
