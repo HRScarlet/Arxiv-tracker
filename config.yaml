@@ -1,12 +1,23 @@
-categories: ["cs.CV", "cs.LG", "cs.AI"]
+categories: ["cs.RO","cs.SY","eess.SY","cs.CV","cs.NI","cs.MA","q-bio.PE" ]
 keywords:
-  - "open vocabulary"
-  - "open-vocabulary"
-  - "open vocabulary segmentation"
-  - "open-vocabulary segmentation"
-  - "vision language model"
-  - "training-free"
-  - "training free"
+  - "swarm"
+  - "swarm intelligence"
+  - "collective"
+  - "flocking"
+  - "swarm control"
+  - "drone"
+  - "UAV"
+  - "multi-UAV"
+  - "quadrotor"
+  - "optimization"
+  - "bio-inspired"
+  - "biomimetic"
+  - "biological"
+  - "pheromone"
+  - "stigmergy"
+  - "quorum sensing"
+  - "decision making"
+  - "communication"
 
 logic: "AND"                 # 组间逻辑：categories 与 keywords 间 AND/OR
 max_results: 30
