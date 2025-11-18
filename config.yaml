@@ -1,48 +1,12 @@
-categories: 
-  - "cs.RO"   # Robotics - 机器人学（集群机器人、无人机、仿生机器人）
-  - "cs.SY"   # Systems and Control - 系统与控制（分布式控制、编队控制）
-  - "cs.MA"   # Multiagent Systems - 多智能体系统（群体智能核心分类）
-  - "q-bio.PE" # Populations and Evolution - 群体生物学（生物群体行为研究）
-
-# 关键词：集群行为、群体智能、集群控制相关（优化版，避免匹配LLM）
-# 策略：使用更具体的术语，避免通用词，强调"群体"和"集群"的物理/行为层面
+categories: ["cs.CV", "cs.LG", "cs.AI"]
 keywords:
-  # 核心术语（强调物理集群和群体行为）
-  - "swarm robotics"
-  - "swarm intelligence"
-  - "multi-agent system"
-  - "collective behavior"
-  - "collective motion"
-  
-  # 集群控制（具体控制方法）
-  - "formation control"
-  - "consensus control"
-  - "distributed control"
-  - "flocking"
-  - "swarm control"
-  
-  # 无人机集群（具体应用）
-  - "drone swarm"
-  - "UAV swarm"
-  - "multi-UAV"
-  - "quadrotor swarm"
-  
-  # 集群算法（具体算法名称，避免通用词）
-  - "particle swarm optimization"
-  - "ant colony optimization"
-  - "swarm optimization"
-  
-  # 生物群体仿生学（具体术语）
-  - "bio-inspired swarm"
-  - "biomimetic swarm"
-  - "biological collective behavior"
-  
-  # 信息传递与集群机理（核心机制）
-  - "pheromone"
-  - "stigmergy"
-  - "quorum sensing"
-  - "collective decision making"
-  - "swarm communication"
+  - "open vocabulary"
+  - "open-vocabulary"
+  - "open vocabulary segmentation"
+  - "open-vocabulary segmentation"
+  - "vision language model"
+  - "training-free"
+  - "training free"
 
 logic: "AND"                 # 组间逻辑：categories 与 keywords 间 AND/OR
 max_results: 30
