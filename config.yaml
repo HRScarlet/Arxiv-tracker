@@ -1,52 +1,70 @@
 # 集群行为、群体智能、集群无人机控制、生物群体仿生学相关分类
+# 注意：移除了 cs.AI 和 cs.LG，因为它们包含大量LLM相关内容
 categories: 
   - "cs.RO"   # Robotics - 机器人学（集群机器人、无人机、仿生机器人）
   - "cs.SY"   # Systems and Control - 系统与控制（分布式控制、编队控制）
   - "cs.MA"   # Multiagent Systems - 多智能体系统（群体智能核心分类）
-  - "cs.AI"   # Artificial Intelligence - 人工智能（群体智能算法、仿生算法）
-  - "cs.LG"   # Machine Learning - 机器学习（如果涉及学习型集群算法）
   - "q-bio.PE" # Populations and Evolution - 群体生物学（生物群体行为研究）
 
-# 关键词：集群行为、群体智能、集群控制相关
+# 关键词：集群行为、群体智能、集群控制相关（优化版，避免匹配LLM）
+# 策略：使用更具体的术语，避免通用词，强调"群体"和"集群"的物理/行为层面
 keywords:
-  # 核心术语（最基础）
-  - "swarm"
-  - "swarm intelligence"
+  # 核心术语（强调物理集群和群体行为）
   - "swarm robotics"
-  - "multi-agent"
-  - "multiagent"
+  - "swarm intelligence"
+  - "multi-agent system"
   - "collective behavior"
+  - "collective motion"
   
-  # 集群控制（核心控制方法）
+  # 集群控制（具体控制方法）
   - "formation control"
-  - "consensus"
+  - "consensus control"
   - "distributed control"
   - "flocking"
+  - "swarm control"
   
-  # 无人机集群（精简）
+  # 无人机集群（具体应用）
   - "drone swarm"
   - "UAV swarm"
   - "multi-UAV"
+  - "quadrotor swarm"
   
-  # 集群算法（核心算法）
-  - "particle swarm"
-  - "ant colony"
+  # 集群算法（具体算法名称，避免通用词）
+  - "particle swarm optimization"
+  - "ant colony optimization"
   - "swarm optimization"
-  - "self-organization"
   
-  # 生物群体仿生学（核心术语）
-  - "bio-inspired"
-  - "biomimetic"
-  - "collective motion"
+  # 生物群体仿生学（具体术语）
+  - "bio-inspired swarm"
+  - "biomimetic swarm"
+  - "biological collective behavior"
   
   # 信息传递与集群机理（核心机制）
-  - "information transfer"
   - "pheromone"
   - "stigmergy"
   - "quorum sensing"
   - "collective decision making"
+  - "swarm communication"
 
 logic: "AND"                 # 组间逻辑：categories 与 keywords 间 AND/OR
+
+# 排除关键词：排除包含这些关键词的论文（使用 ANDNOT 逻辑）
+exclude_keywords:
+  # 排除LLM/大语言模型相关内容
+  - "large language model"
+  - "LLM"
+  - "GPT"
+  - "transformer"
+  - "language model"
+  - "generative AI"
+  - "chatbot"
+  - "text generation"
+  - "natural language processing"
+  - "NLP"
+  # 排除其他不相关的内容
+  - "computer vision"  # 如果不想包含纯视觉相关
+  - "image classification"  # 如果不想包含图像分类
+
 max_results: 30
 sort_by: "lastUpdatedDate"  # 还可以是submittedDate 建议改成lastUpdatedDate按更新时间排，能捞到v2/v3的“新增”
 sort_order: "descending"
