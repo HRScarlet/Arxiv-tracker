@@ -40,14 +40,14 @@ email:
 # —— LLM（DeepSeek/OpenAI 兼容） ——
 llm:
   provider: "openai-compatible"     # 兼容 OpenAI SDK 的服务
-  # 硅基流动的版本
-  base_url: "https://api.siliconflow.cn"
-  model: "Qwen/Qwen2.5-7B-Instruct"
+  # Deepseek的版本（已启用）
+  base_url: "https://api.deepseek.com"
+  model: "deepseek-chat"
   api_key_env: "OPENAI_COMPAT_API_KEY"
-  # Deepseek的版本
-  # base_url: "https://api.deepseek.com"
-  # model: "deepseek-chat"
-  # api_key_env: "DS_API_KEY"
+  # 硅基流动的版本（备用）
+  # base_url: "https://api.siliconflow.cn"
+  # model: "Qwen/Qwen2.5-7B-Instruct"
+  # api_key_env: "OPENAI_COMPAT_API_KEY"
   
 
   system_prompt_en: |
