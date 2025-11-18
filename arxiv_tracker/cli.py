@@ -162,9 +162,14 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
             click.echo("[Freshness] since_days={}, unique_only={}, state_path='{}', fallback_when_empty={}"
                        .format(since_days, unique_only, state_path, fallback_when_empty))
 
+        # 排除关键词配置
+        exclude_keywords = _split_keywords(raw_cfg.get("exclude_keywords", []))
+
         if verbose:
             click.echo("[Run] categories: {}".format(cfg.categories))
             click.echo("[Run] keywords  : {}".format(cfg.keywords))
+            if exclude_keywords:
+                click.echo("[Run] exclude  : {}".format(exclude_keywords))
             click.echo("[Run] summary   : {}/{}".format(mode, scope))
             click.echo("[Run] lang      : {}".format(lang))
             click.echo("[Run] translate : {} -> {}".format(trans_cfg.get("enabled", False),
@@ -173,7 +178,7 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
                 email_cfg.get("enabled", False), email_cfg.get("detail"), email_cfg.get("max_items")
             ))
 
-        # 2) 查询（分页抓取直到攒够“未读新条目”或触达时间窗）
+        # 2) 查询（分页抓取直到攒够"未读新条目"或触达时间窗）
         from datetime import datetime, timedelta, timezone
         import json, pathlib
 
@@ -186,7 +191,7 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
             except Exception:
                 return None
 
-        q = build_search_query(cfg.categories, cfg.keywords, cfg.logic)
+        q = build_search_query(cfg.categories, cfg.keywords, cfg.logic, exclude_keywords)
         click.echo("[Query] {}".format(q))
 
         # 读取已见集合（兼容 list / {"ids":[...]} / {id: timestamp} 三种格式）
