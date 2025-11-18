@@ -9,68 +9,42 @@ categories:
 
 # 关键词：集群行为、群体智能、集群控制相关
 keywords:
-  # 核心术语
+  # 核心术语（最基础）
   - "swarm"
   - "swarm intelligence"
   - "swarm robotics"
   - "multi-agent"
   - "multiagent"
-  - "multi-agent system"
   - "collective behavior"
-  - "collective intelligence"
   
-  # 集群控制相关
-  - "swarm control"
+  # 集群控制（核心控制方法）
   - "formation control"
   - "consensus"
-  - "consensus control"
   - "distributed control"
-  - "cooperative control"
   - "flocking"
-  - "herding"
   
-  # 无人机集群
+  # 无人机集群（精简）
   - "drone swarm"
   - "UAV swarm"
-  - "swarm of drones"
   - "multi-UAV"
-  - "multi-drone"
-  - "quadrotor swarm"
-  - "fleet of drones"
   
-  # 集群算法
+  # 集群算法（核心算法）
   - "particle swarm"
   - "ant colony"
-  - "bee colony"
   - "swarm optimization"
-  - "swarm algorithm"
-  - "emergent behavior"
   - "self-organization"
   
-  # 生物群体仿生学
+  # 生物群体仿生学（核心术语）
   - "bio-inspired"
   - "biomimetic"
-  - "biological collective behavior"
-  - "animal collective behavior"
-  - "biological swarm"
-  - "animal swarm"
-  - "fish school"
-  - "bird flock"
-  - "insect swarm"
   - "collective motion"
   
-  # 信息传递与集群机理
+  # 信息传递与集群机理（核心机制）
   - "information transfer"
-  - "swarm communication"
-  - "collective communication"
   - "pheromone"
   - "stigmergy"
   - "quorum sensing"
   - "collective decision making"
-  - "collective sensing"
-  - "biological information processing"
-  - "swarm intelligence mechanism"
-  - "collective mechanism"
 
 logic: "AND"                 # 组间逻辑：categories 与 keywords 间 AND/OR
 max_results: 30
