@@ -47,21 +47,6 @@ keywords:
   - "swarm communication"
 
 logic: "AND"                 # 组间逻辑：categories 与 keywords 间 AND/OR
-
-# 排除关键词：排除包含这些关键词的论文（使用 ANDNOT 逻辑）
-exclude_keywords:
-  # 排除LLM/大语言模型相关内容
-  - "large language model"
-  - "LLM"
-  - "GPT"
-  - "transformer"
-  - "language model"
-  - "generative AI"
-  - "chatbot"
-  - "text generation"
-  - "natural language processing"
-  - "NLP"
-
 max_results: 30
 sort_by: "lastUpdatedDate"  # 还可以是submittedDate 建议改成lastUpdatedDate按更新时间排，能捞到v2/v3的“新增”
 sort_order: "descending"
