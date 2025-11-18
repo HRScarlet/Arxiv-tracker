@@ -2,24 +2,14 @@ from __future__ import annotations
 import time
 import click
 import schedule
-import yaml
 from .config import Settings
 from .query import build_search_query
 from .client import fetch_arxiv_feed
 from .parser import parse_feed
 from .output import save_json, save_markdown
 
-def _job(cfg: Settings, out_dir: str, config_path: str):
-    # 读取排除关键词
-    exclude_keywords = []
-    try:
-        with open(config_path, "r", encoding="utf-8") as f:
-            raw_cfg = yaml.safe_load(f) or {}
-            exclude_keywords = raw_cfg.get("exclude_keywords", []) or []
-    except Exception:
-        pass
-    
-    q = build_search_query(cfg.categories, cfg.keywords, cfg.logic, exclude_keywords)
+def _job(cfg: Settings, out_dir: str):
+    q = build_search_query(cfg.categories, cfg.keywords, cfg.logic)
     print(f"[Scheduler] Running query: {q}")
     xml = fetch_arxiv_feed(q, start=0, max_results=cfg.max_results,
                            sort_by=cfg.sort_by, sort_order=cfg.sort_order)
@@ -35,7 +25,7 @@ def _job(cfg: Settings, out_dir: str, config_path: str):
 @click.option("--out-dir", default="outputs", help="输出目录")
 def main(time_str, config_path, out_dir):
     cfg = Settings.from_file(config_path)
-    schedule.every().day.at(time_str).do(_job, cfg=cfg, out_dir=out_dir, config_path=config_path)
+    schedule.every().day.at(time_str).do(_job, cfg=cfg, out_dir=out_dir)
     print(f"[Scheduler] Registered daily job at {time_str}. Press Ctrl+C to stop.")
     while True:
         schedule.run_pending()
