@@ -162,14 +162,9 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
             click.echo("[Freshness] since_days={}, unique_only={}, state_path='{}', fallback_when_empty={}"
                        .format(since_days, unique_only, state_path, fallback_when_empty))
 
-        # 排除关键词配置
-        exclude_keywords = _split_keywords(raw_cfg.get("exclude_keywords", []))
-
         if verbose:
             click.echo("[Run] categories: {}".format(cfg.categories))
             click.echo("[Run] keywords  : {}".format(cfg.keywords))
-            if exclude_keywords:
-                click.echo("[Run] exclude  : {}".format(exclude_keywords))
             click.echo("[Run] summary   : {}/{}".format(mode, scope))
             click.echo("[Run] lang      : {}".format(lang))
             click.echo("[Run] translate : {} -> {}".format(trans_cfg.get("enabled", False),
@@ -178,7 +173,7 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
                 email_cfg.get("enabled", False), email_cfg.get("detail"), email_cfg.get("max_items")
             ))
 
-        # 2) 查询（分页抓取直到攒够"未读新条目"或触达时间窗）
+        # 2) 查询（分页抓取直到攒够“未读新条目”或触达时间窗）
         from datetime import datetime, timedelta, timezone
         import json, pathlib
 
@@ -191,7 +186,7 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
             except Exception:
                 return None
 
-        q = build_search_query(cfg.categories, cfg.keywords, cfg.logic, exclude_keywords)
+        q = build_search_query(cfg.categories, cfg.keywords, cfg.logic)
         click.echo("[Query] {}".format(q))
 
         # 读取已见集合（兼容 list / {"ids":[...]} / {id: timestamp} 三种格式）
@@ -229,25 +224,6 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
                 break
 
             for it in page_items:
-                # 排除关键词过滤（在代码层面过滤，避免ANDNOT语法问题）
-                if exclude_keywords:
-                    title = (it.get("title") or "").lower()
-                    summary = (it.get("summary") or "").lower()
-                    comments = (it.get("comments") or "").lower()
-                    text = f"{title} {summary} {comments}"
-                    
-                    # 检查是否包含任何排除关键词
-                    should_exclude = False
-                    for exclude_kw in exclude_keywords:
-                        if exclude_kw.lower() in text:
-                            should_exclude = True
-                            if verbose:
-                                click.echo(f"[Filter] Excluding {(it.get('id') or '')[:32]}... (matched: {exclude_kw})")
-                            break
-                    
-                    if should_exclude:
-                        continue
-                
                 # 时间窗（按 updated 优先；无则退回 published）
                 t = _parse_dt(it.get("updated")) or _parse_dt(it.get("published"))
                 if cutoff and t and t < cutoff:
@@ -278,27 +254,7 @@ def run(config_path, categories, keywords, logic, max_results, sort_by, sort_ord
                 q, start=0, max_results=want_new,
                 sort_by=cfg.sort_by, sort_order=cfg.sort_order
             )
-            fallback_items = parse_feed(xml) or []
-            # 对fallback结果也进行排除关键词过滤
-            if exclude_keywords:
-                filtered_fallback = []
-                for it in fallback_items:
-                    title = (it.get("title") or "").lower()
-                    summary = (it.get("summary") or "").lower()
-                    comments = (it.get("comments") or "").lower()
-                    text = f"{title} {summary} {comments}"
-                    
-                    should_exclude = False
-                    for exclude_kw in exclude_keywords:
-                        if exclude_kw.lower() in text:
-                            should_exclude = True
-                            break
-                    
-                    if not should_exclude:
-                        filtered_fallback.append(it)
-                collected = filtered_fallback
-            else:
-                collected = fallback_items
+            collected = parse_feed(xml) or []
 
         items = collected
         if not items:
