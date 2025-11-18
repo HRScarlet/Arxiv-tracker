@@ -49,30 +49,45 @@ def _kw_group(kw: str) -> str:
 
     return "(" + " OR ".join(parts) + ")"
 
-def build_search_query(categories: List[str], keywords: List[str], logic: str = "AND") -> str:
+def build_search_query(categories: List[str], keywords: List[str], logic: str = "AND", exclude_keywords: List[str] = None) -> str:
     """
     生成 arXiv API 的 search_query 字符串。
     - categories: ["cs.CV","cs.LG"] -> (cat:cs.CV OR cat:cs.LG)
     - keywords:   每个 kw 变成一个 _kw_group，关键词之间用 OR 连接
+    - exclude_keywords: 排除的关键词列表，使用 ANDNOT 排除
     - 组间逻辑：cat_group (AND/OR) kw_group
     """
     cats = [c.strip() for c in (categories or []) if c and c.strip()]
     keys = [k.strip() for k in (keywords or []) if k and k.strip()]
+    exclude_keys = [k.strip() for k in (exclude_keywords or []) if k and k.strip()]
+    
     cat_q = ""
     key_q = ""
+    exclude_q = ""
 
     if cats:
         cat_q = "(" + " OR ".join(f"cat:{c}" for c in cats) + ")"
     if keys:
         key_q = "(" + " OR ".join(_kw_group(k) for k in keys) + ")"
+    if exclude_keys:
+        # 排除关键词：使用 ANDNOT，排除关键词之间用 OR 连接
+        exclude_q = "(" + " OR ".join(_kw_group(k) for k in exclude_keys) + ")"
 
+    # 构建查询
+    main_query = ""
     if cat_q and key_q:
         op = "AND" if (logic or "AND").upper() == "AND" else "OR"
-        return f"{cat_q} {op} {key_q}"
+        main_query = f"{cat_q} {op} {key_q}"
     elif cat_q:
-        return cat_q
+        main_query = cat_q
     elif key_q:
-        return key_q
+        main_query = key_q
     else:
         # 没给任何条件就回到全站（不建议）
-        return "all:*"
+        main_query = "all:*"
+    
+    # 如果有排除关键词，添加 ANDNOT
+    if exclude_q:
+        return f"({main_query}) ANDNOT {exclude_q}"
+    else:
+        return main_query
