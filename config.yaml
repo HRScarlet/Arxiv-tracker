@@ -1,12 +1,76 @@
-categories: ["cs.CV", "cs.LG", "cs.AI"]
+# 集群行为、群体智能、集群无人机控制、生物群体仿生学相关分类
+categories: 
+  - "cs.RO"   # Robotics - 机器人学（集群机器人、无人机、仿生机器人）
+  - "cs.SY"   # Systems and Control - 系统与控制（分布式控制、编队控制）
+  - "cs.MA"   # Multiagent Systems - 多智能体系统（群体智能核心分类）
+  - "cs.AI"   # Artificial Intelligence - 人工智能（群体智能算法、仿生算法）
+  - "cs.LG"   # Machine Learning - 机器学习（如果涉及学习型集群算法）
+  - "q-bio.PE" # Populations and Evolution - 群体生物学（生物群体行为研究）
+
+# 关键词：集群行为、群体智能、集群控制相关
 keywords:
-  - "open vocabulary"
-  - "open-vocabulary"
-  - "open vocabulary segmentation"
-  - "open-vocabulary segmentation"
-  - "vision language model"
-  - "training-free"
-  - "training free"
+  # 核心术语
+  - "swarm"
+  - "swarm intelligence"
+  - "swarm robotics"
+  - "multi-agent"
+  - "multiagent"
+  - "multi-agent system"
+  - "collective behavior"
+  - "collective intelligence"
+  
+  # 集群控制相关
+  - "swarm control"
+  - "formation control"
+  - "consensus"
+  - "consensus control"
+  - "distributed control"
+  - "cooperative control"
+  - "flocking"
+  - "herding"
+  
+  # 无人机集群
+  - "drone swarm"
+  - "UAV swarm"
+  - "swarm of drones"
+  - "multi-UAV"
+  - "multi-drone"
+  - "quadrotor swarm"
+  - "fleet of drones"
+  
+  # 集群算法
+  - "particle swarm"
+  - "ant colony"
+  - "bee colony"
+  - "swarm optimization"
+  - "swarm algorithm"
+  - "emergent behavior"
+  - "self-organization"
+  
+  # 生物群体仿生学
+  - "bio-inspired"
+  - "biomimetic"
+  - "biological collective behavior"
+  - "animal collective behavior"
+  - "biological swarm"
+  - "animal swarm"
+  - "fish school"
+  - "bird flock"
+  - "insect swarm"
+  - "collective motion"
+  
+  # 信息传递与集群机理
+  - "information transfer"
+  - "swarm communication"
+  - "collective communication"
+  - "pheromone"
+  - "stigmergy"
+  - "quorum sensing"
+  - "collective decision making"
+  - "collective sensing"
+  - "biological information processing"
+  - "swarm intelligence mechanism"
+  - "collective mechanism"
 
 logic: "AND"                 # 组间逻辑：categories 与 keywords 间 AND/OR
 max_results: 30
@@ -26,7 +90,7 @@ summary:
 # —— 邮件发送（QQ 邮箱） ——
 email:
   enabled: true
-  subject: "[arXiv] Daily Digest"
+  subject: "[arXiv] 集群智能与群体行为 每日速递"
   smtp_server: "smtp.qq.com"
   smtp_port: 465
   smtp_pass_env: "SMTP_PASS"
@@ -69,7 +133,7 @@ translate:
 site:
   enabled: true
   dir: "docs" 
-  title: "arXiv 论文速递"
+  title: "集群智能与群体行为 - arXiv 论文速递"
   keep_runs: 1024         # 历史保留期（按页面份数）
   theme: "light"        # "light" | "dark" | "auto"
   accent: "#2563eb"     # 主题色（可自定义）
