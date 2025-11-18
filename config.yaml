@@ -1,5 +1,3 @@
-# 集群行为、群体智能、集群无人机控制、生物群体仿生学相关分类
-# 注意：移除了 cs.AI 和 cs.LG，因为它们包含大量LLM相关内容
 categories: 
   - "cs.RO"   # Robotics - 机器人学（集群机器人、无人机、仿生机器人）
   - "cs.SY"   # Systems and Control - 系统与控制（分布式控制、编队控制）
